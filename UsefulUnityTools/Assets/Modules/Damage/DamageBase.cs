@@ -39,7 +39,7 @@ public class DamageBase : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		m_health = m_startingHealth;
+		mHealth = mStartingHealth;
 	}
 
 	/// <summary>
@@ -59,19 +59,19 @@ public class DamageBase : MonoBehaviour {
 	/// <param name="damageAmount">Damage amount.</param>
 	public void Damage( float damageAmount, GameObject source )
 	{
-		if( !m_alive ) return; // We are aleady dead...
+		if( !mAlive ) return; // We are aleady dead...
 
 		// Check we are not going to kill the DamageBase
-		if( m_health <= damageAmount)
+		if( mHealth <= damageAmount)
 		{
 			// The amount we have gone over the tollerance of this health value.
-			float overDamage = damageAmount - m_health;
+			float overDamage = damageAmount - mHealth;
 
 			// Set the health value to 0 because we can't have a negative health value, that would be stupid.
-			m_health = 0;
+			mHealth = 0;
 
 			// Kill it.
-			m_alive = false;
+			mAlive = false;
 
 			// Inform the DamageBase we have died.
 			OnDeath( damageAmount, overDamage, source );
@@ -79,7 +79,7 @@ public class DamageBase : MonoBehaviour {
 		else
 		{
 			// Deduct the health as the DamageBase is still alive.
-			m_health -= damageAmount;
+			mHealth -= damageAmount;
 
 			// Inform the DamageBase we have been damaged.
 			OnDamage( damageAmount, source );
@@ -92,14 +92,13 @@ public class DamageBase : MonoBehaviour {
 	/// Repair the specified repair amount.
 	/// Returns if the repair could happen.
 	/// </summary>
-	/// <param name="repairAmount">Repair amount.</param>
-	
+	/// <param name="repairAmount">Repair amount.</param>	
 	public bool Repair( float repairAmount, GameObject source )
 	{
-		if( m_alive )
+		if( mAlive )
 		{
 			/// GOOD PROGRAMMING PRACTICE
-			m_health = Mathf.Clamp( m_health + repairAmount, 0, m_maximumHealth );
+			mHealth = Mathf.Clamp( mHealth + repairAmount, 0, mMaximumHealth );
 
 
 			// When we initiate a repair we've got to tell the member event handlers.
@@ -109,29 +108,33 @@ public class DamageBase : MonoBehaviour {
 		return false;
 	}
 
-
-	// OnRepair, doesn't require OnRevive because that wouldn't be an instantated thing.
-	// OnRepair implies the object health would be increased to above 0, this must be checked on the object end of course.
-
 	/// <summary>
 	/// Reset the damage base to it's default health.
 	/// Reset the damage base alive value so it knows its alive again and can be damaged.
 	/// </summary>
 	public void Revive( GameObject source)
 	{
-		m_alive = true;
-		m_health = m_startingHealth;
+		mAlive = true;
+		mHealth = mStartingHealth;
 		OnRevive( this, source );
 	}
 
-
+    /// <summary>
+    /// Call revive event delegate
+    /// </summary>
+    /// <param name="damageBase"></param>
+    /// <param name="source"></param>
 	private void OnRevive( DamageBase damageBase, GameObject source )
 	{
 		if( ReviveEvent == null ) return; 
 		ReviveEvent( damageBase, source );
 	}
 
-
+    /// <summary>
+    /// Repair the object, can be originating from another game object.
+    /// </summary>
+    /// <param name="repairAmount"></param>
+    /// <param name="source"></param>
 	private void OnRepair( float repairAmount, GameObject source )
 	{
 		if( RepairEvent == null ) return; 
@@ -178,15 +181,26 @@ public class DamageBase : MonoBehaviour {
 
 
 	// The source is the node which is executing the damage, repair or revive.
-
 	// These delegates are used to handle the events, they easily let me pull down the required arguments, obviously they're good practice too!
 	public delegate void GenericDamage( DamageBase damageBase, float damageAmount, GameObject source );
 	public delegate void GenericDeath( DamageBase damageBase, float damageAmount, float overDamage, GameObject source );
 	public delegate void GenericRepair( DamageBase damageBase, float repairAmount, GameObject source );
 	public delegate void GenericRevive( DamageBase damageBase, GameObject source );
 
-	public bool m_alive;
-	public float m_health;
-	public float m_startingHealth;
-	public float m_maximumHealth;
+    /// <summary>
+    /// Is the object alive?
+    /// </summary>
+	public bool mAlive;
+    /// <summary>
+    /// The health value available.
+    /// </summary>
+	public float mHealth;
+    /// <summary>
+    /// The starting health
+    /// </summary>
+	public float mStartingHealth;
+    /// <summary>
+    /// The maximum health
+    /// </summary>
+	public float mMaximumHealth;
 }

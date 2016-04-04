@@ -9,31 +9,38 @@ using System.Collections;
 //          \/     \/      \/     \/_____/      \/          \/     \/     \/     \/                                                     
 // Destroy all the things.
 
-
+[RequireComponent(typeof(DamageBase))]
 public class DamageEntity : MonoBehaviour {
-	
-	private DamageBase m_damageBase;
+	/// <summary>
+    /// The damage base which is attached to the entity.
+    /// </summary>
+	private DamageBase mDamageBase;
 
-	// The explosion prefab.
-	public GameObject m_explosion;
+	/// <summary>
+    /// A prefab for when the object dies / explodes.
+    /// </summary>
+	public GameObject mExplosion;
 
-	// Use this for initialization
+	/// <summary>
+    /// Unity start hook.
+    /// </summary>
 	void Start () {
 		// Find the attached damageBase.
-		m_damageBase = gameObject.GetComponent<DamageBase> ();
+		mDamageBase = GetComponent<DamageBase>();
 
 		// Assign the death delegate to the damage base, as intented.
-		m_damageBase.DeathEvent += DeathEvent;
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		mDamageBase.DeathEvent += DeathEvent;
 	}
 
-	// Simple death event delegate for the damage base so when the object dies it's removed.
-	void DeathEvent( DamageBase db, float damage, float overhealthdamage, GameObject source )
+    /// <summary>
+    /// Death event delegate usage example
+    /// Used to remove the object when it dies
+    /// </summary>
+    /// <param name="db"></param>
+    /// <param name="damage"></param>
+    /// <param name="overhealthdamage"></param>
+    /// <param name="source"></param>
+    void DeathEvent( DamageBase db, float damage, float overhealthdamage, GameObject source )
 	{
 		// Destroy this gameobject.
 		Rigidbody rb = gameObject.AddComponent<Rigidbody> ();
@@ -60,7 +67,7 @@ public class DamageEntity : MonoBehaviour {
 		rb.AddExplosionForce (damage * overDamageMultiplier, source.transform.position, explosionValue.m_damageRadius);
 
 		// Run the explosion.
-		GameObject tr = (GameObject)Instantiate (m_explosion, transform.position, Quaternion.identity);
+		GameObject tr = (GameObject)Instantiate (mExplosion, transform.position, Quaternion.identity);
        
         // Reset pos, and align to new parent.
         tr.transform.SetParent(transform, false);
