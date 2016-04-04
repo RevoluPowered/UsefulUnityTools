@@ -62,11 +62,11 @@ public class DamageEntity : MonoBehaviour {
 		Explosion explosionValue = source.GetComponent<Explosion> ();
 
 		// The damage * overdamage, beasically stopping the force being too low and also giving us some interesting force effects in the game.
-		float calculatedDamage = damage * overDamageMultiplier;
+		//float calculatedDamage = damage * overDamageMultiplier;
 
 		// The force multiplier is calculated based upon a min value, this makes sure we at least do the force of a basic level explosive, this can be changed.
 		// Be warned this causes major effects in the game, changing this value should be noted to the players. * ALWAYS *.
-		float forceMultiplier = (calculatedDamage > 125 ? calculatedDamage : 125);
+		//float forceMultiplier = (calculatedDamage > 125 ? calculatedDamage : 125);
 
 		// Phyiscally simulate the explosion on the object, this is awesome!
 		rb.AddExplosionForce (damage * overDamageMultiplier, source.transform.position, explosionValue.mDamageRadius);
