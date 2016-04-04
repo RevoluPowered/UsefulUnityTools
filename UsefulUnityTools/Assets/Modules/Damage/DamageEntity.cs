@@ -47,8 +47,8 @@ public class DamageEntity : MonoBehaviour {
     /// <param name="source"></param>
     void DeathEvent( DamageBase db, float damage, float overhealthdamage, GameObject source )
 	{
-		// Destroy this gameobject.
-		Rigidbody rb = gameObject.AddComponent<Rigidbody> ();
+        // Destroy this gameobject.
+        Rigidbody rb = gameObject.AddComponent<Rigidbody>();
 
 		// This s
 		rb.mass = 100; // I know this is bad, eventually I will update this to something like:::: val =  parent objects mass / child count (first layer)
@@ -76,7 +76,9 @@ public class DamageEntity : MonoBehaviour {
        
         // Reset pos, and align to new parent.
         tr.transform.SetParent(transform, false);
-		//DestroyObject (gameObject,10);
+
+        // Destroy on death.
+		Destroy (gameObject,10);
 
 	}
 }
