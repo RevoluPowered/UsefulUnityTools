@@ -8,13 +8,31 @@ using System.Collections;
 //  /_______  /__/\_ \   __/|____/\____/____  >__|\____/|___|  /          |___  /\___  >___  >____  /____//____  >\___  >  / ____|\____/|____/ |__|   \___  >   \/\_/ \____/|__|   |__| |___|  / |__||__| /\ 
 //          \/      \/__|                   \/               \/               \/     \/    \/     \/           \/     \/   \/                             \/                                 \/           \/ 
 
+/// <summary>
+/// An explosion script which causes damage to any entities within the explosion radius.
+/// Specify the damage amount and it will explode within range of an object.
+/// </summary>
 public class Explosion : MonoBehaviour {
-
-	public float m_explosionTime = 10;
-	public float m_damageRadius = 10;
-	public float m_damageAmount = 5;
-	public bool m_exploded = false;
-	public int m_ObjectsDamaged = 0;
+    /// <summary>
+    /// The explosion time in seconds.
+    /// </summary>
+	public float mExplosionTime = 10;
+    /// <summary>
+    /// The damage radius.
+    /// </summary>
+	public float mDamageRadius = 10;
+    /// <summary>
+    /// The damage amount in HP.
+    /// </summary>
+	public float mDamageAmount = 5;
+    /// <summary>
+    /// Has the object already exploded?
+    /// </summary>
+	public bool mExploded = false;
+    /// <summary>
+    /// How many objects / with DamageBases were damaged, used for debugging.
+    /// </summary>
+	public int mObjectDamagedCount = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -25,29 +43,29 @@ public class Explosion : MonoBehaviour {
 	void Update () {
 
 		// Stop the counter if we've already run the explosion.
-		if(m_exploded) return;
+		if(mExploded) return;
 
 		// Register the time change on this frame.
-		m_explosionTime -= Time.deltaTime;
+		mExplosionTime -= Time.deltaTime;
 		
-		if( m_explosionTime <= 0)
+		if( mExplosionTime <= 0)
 		{
 			// Avoid exploding again.
-			m_exploded = true;
+			mExploded = true;
 			
 			// Find damagable in sphere.
-			Collider[] objectsToDamage = Physics.OverlapSphere( gameObject.transform.position, m_damageRadius);
+			Collider[] objectsToDamage = Physics.OverlapSphere( gameObject.transform.position, mDamageRadius);
 			
 			// Run damage loop.
 			foreach( Collider c in objectsToDamage )
 			{
 				// Send damage amount. *lag?*
-				c.SendMessage( "Damage", new DamageParameters(m_damageAmount, gameObject), SendMessageOptions.DontRequireReceiver);
+				c.SendMessage( "Damage", new DamageParameters(mDamageAmount, gameObject), SendMessageOptions.DontRequireReceiver);
 				// Increment damaged objects
-				++m_ObjectsDamaged;
+				++mObjectDamagedCount;
 			}
 			
-			Debug.Log ("Completed damage cycle with a total damage of: " + (m_damageAmount * m_ObjectsDamaged));
+			Debug.Log ("Completed damage cycle with a total damage of: " + (mDamageAmount * mObjectDamagedCount));
 		}
 	}
 }

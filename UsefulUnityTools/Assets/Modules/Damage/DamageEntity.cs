@@ -9,6 +9,11 @@ using System.Collections;
 //          \/     \/      \/     \/_____/      \/          \/     \/     \/     \/                                                     
 // Destroy all the things.
 
+/// <summary>
+/// DamageEntity is a system for handling the OnDeath event of an object when damaged.
+/// You can specify an effect which runs by applying the explosion prefab.
+/// This is simple and effective.
+/// </summary>
 [RequireComponent(typeof(DamageBase))]
 public class DamageEntity : MonoBehaviour {
 	/// <summary>
@@ -64,7 +69,7 @@ public class DamageEntity : MonoBehaviour {
 		float forceMultiplier = (calculatedDamage > 125 ? calculatedDamage : 125);
 
 		// Phyiscally simulate the explosion on the object, this is awesome!
-		rb.AddExplosionForce (damage * overDamageMultiplier, source.transform.position, explosionValue.m_damageRadius);
+		rb.AddExplosionForce (damage * overDamageMultiplier, source.transform.position, explosionValue.mDamageRadius);
 
 		// Run the explosion.
 		GameObject tr = (GameObject)Instantiate (mExplosion, transform.position, Quaternion.identity);
