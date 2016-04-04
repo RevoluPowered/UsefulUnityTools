@@ -23,6 +23,11 @@ public class CollisionDamage : MonoBehaviour {
     /// </summary>
     public float mDamageMultiplier = 2.5f;
 
+    /// <summary>
+    /// Allow particles to damage the object?
+    /// </summary>
+    public bool mAllowParticleCollisionDamage = false;
+
 	/// <summary>
     /// Unity start function / Hook
     /// </summary>
@@ -48,4 +53,19 @@ public class CollisionDamage : MonoBehaviour {
             Console.Log ("[Collision] damage not registered: " + mag);
 		}
 	}
+
+    /// <summary>
+    /// On particle collision / Unity
+    /// Used to detect events from particles. 
+    /// </summary>
+    /// <param name="other"></param>
+    void OnParticleCollision(GameObject other)
+    {
+        // Make sure this is enabled.
+        if (!mAllowParticleCollisionDamage) return;
+        // Since we can't actually get the speed of the particle apply the multiplier as an actual damage value.
+        mDamageBase.Damage(mHitDamage, this.gameObject);
+        // Register to console this has happened.
+        Console.Log("[Particle] damage amount: " + mHitDamage);
+    }
 }
