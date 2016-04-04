@@ -37,9 +37,8 @@ public class Console
 /// This is the new console inteface, designed to replace the old GUI console.
 /// </summary>
 public class ConsoleInterface : MonoBehaviour {
-    public InputField mConsoleArea;
+    public Text mConsoleArea;
     public Text mCommandEntry;
-    public InputField mInputField;
 
     // The command parser.
     public CommandParser MainCommandParser;
@@ -64,7 +63,6 @@ public class ConsoleInterface : MonoBehaviour {
         }
 
         mCommandEntry.text = "";
-        mInputField.text = "";
     }
 
 
