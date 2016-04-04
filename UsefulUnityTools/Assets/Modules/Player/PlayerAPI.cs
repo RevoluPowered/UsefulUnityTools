@@ -56,25 +56,25 @@ namespace Game
 
                 if(mNetworkManager != null)
                 {
-                    Debug.Log("Network manager validated");
+                    Console.Log("Network manager validated");
                 }
 
                 if(mLocalPlayer == null)
                 {
-                    Debug.Log("mLocal player null");
+                    Console.Log("mLocal player null");
                     
                     // Loop through all player controllers in the scene, not to be mistaken for my own class...
                     foreach (UnityEngine.Networking.PlayerController ply in mNetworkManager.client.connection.playerControllers)
                     {
-                        Debug.Log("Ply GetLocalPlayer()");
+                        Console.Log("Ply GetLocalPlayer()");
                         // Find the behavior attached to that object.
                         NetworkBehaviour behavior = ply.gameObject.GetComponent<NetworkBehaviour>();
 
-                        Debug.Log("Behavior is network ply" + behavior.isLocalPlayer);
+                        Console.Log("Behavior is network ply" + behavior.isLocalPlayer);
                         // Is this the local player.
                         if (behavior.isLocalPlayer)
                         {
-                            Debug.Log("Ply returning.");
+                            Console.Log("Ply returning.");
 
                             // Return this object as it is the local player we are looking for.
                             return ply.gameObject;
@@ -87,7 +87,7 @@ namespace Game
                 }
                 else
                 {
-                    Debug.Log("Returning local player.");
+                    Console.Log("Returning local player.");
                     return mLocalPlayer;
                 }
             }
