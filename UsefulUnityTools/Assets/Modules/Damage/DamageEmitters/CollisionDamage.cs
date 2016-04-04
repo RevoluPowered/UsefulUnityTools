@@ -18,6 +18,11 @@ public class CollisionDamage : MonoBehaviour {
     /// </summary>
 	public float mHitDamage = 15.0f;
 
+    /// <summary>
+    /// Damage multiplier
+    /// </summary>
+    public float mDamageMultiplier = 2.5f;
+
 	/// <summary>
     /// Unity start function / Hook
     /// </summary>
@@ -32,7 +37,7 @@ public class CollisionDamage : MonoBehaviour {
 	void OnCollisionEnter( Collision col )
 	{
         // The magnitude in which we hit the object at.
-		float mag = col.relativeVelocity.magnitude;
+		float mag = col.relativeVelocity.magnitude * mDamageMultiplier;
 
         // If the velocity is higher than the magnitude, damage the object.
 		if (mag >= mHitDamage) {
