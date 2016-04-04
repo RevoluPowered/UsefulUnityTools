@@ -41,30 +41,30 @@ public class WireController : MonoBehaviour
 //		m_outputs = new List<WireIO.Output>();
 //		
 //		
-//		Debug.Log ("-------- WireIO Complete Test... ------------");
-//		Debug.Log ("Creating Input: \"My Input Test\".");
+//		Console.Log ("-------- WireIO Complete Test... ------------");
+//		Console.Log ("Creating Input: \"My Input Test\".");
 //		
 //		// Create some test inputs or whatever...
 //		
 //		WireIO.Input testInput = new WireIO.Input( "My Input Test", true );
 //		
 //		// Output Pre-Creation
-//		Debug.Log ("Creating Output: \"My Output Test\"." );
+//		Console.Log ("Creating Output: \"My Output Test\"." );
 //		
 //		WireIO.Output testOutput = new WireIO.Output( "My Output Test", false );
 //		
 //		// Pre Print Values
 //		
-//		Debug.Log("Value of Output: " + testOutput.m_val );
-//		Debug.Log("Value of Input: " + testInput.m_val );
+//		Console.Log("Value of Output: " + testOutput.m_val );
+//		Console.Log("Value of Input: " + testInput.m_val );
 //		
-//		Debug.Log("Connecting the output to the input...");
+//		Console.Log("Connecting the output to the input...");
 //		// Show Current Output.
 //		testOutput.ConnectInput( testInput );
 //		
-//		Debug.Log("Connected...");
-//		Debug.Log("Value of Output: " + testOutput.m_val );
-//		Debug.Log("Value of Input: " + testInput.m_val );
+//		Console.Log("Connected...");
+//		Console.Log("Value of Output: " + testOutput.m_val );
+//		Console.Log("Value of Input: " + testInput.m_val );
 //		
 //		
 //		
