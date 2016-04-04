@@ -51,7 +51,7 @@ namespace Game.Networking
             if (mClient == null)
             {
                 // Update it.
-                mClient = PlayerAPI.GetNetworkClient();
+                //mClient = PlayerAPI.GetNetworkClient();
             }
 
             // Send the player information.
