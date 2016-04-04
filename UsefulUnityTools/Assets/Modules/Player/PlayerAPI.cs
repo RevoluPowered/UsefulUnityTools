@@ -5,6 +5,9 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
+
+// This might be useful in the future, TBD later.
+
 namespace Game
 {
     namespace Player
@@ -25,12 +28,12 @@ namespace Game
             /// </summary>
             public static GameObject mLocalPlayer = null;
 
-            public static NetworkClient mNetworkClient;
+            //public static NetworkClient mNetworkClient;
 
-            public static NetworkClient GetNetworkClient()
+            /*public static NetworkClient GetNetworkClient()
             {
                 return mNetworkClient;
-            }
+            }*/
 
             /// <summary>
             /// Obtain the local network player, this should always be accurate and usable.
