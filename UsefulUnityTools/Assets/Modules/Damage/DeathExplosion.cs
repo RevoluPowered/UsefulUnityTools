@@ -43,6 +43,7 @@ public class DeathExplosion : MonoBehaviour {
             Destroy(gameObject);
         }
 
+        // Display information on the console.
         Console.Log("[Explosion] Death event for " + gameObject.name + " with damage amount: " + damageAmount);
 
     }
